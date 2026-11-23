@@ -967,13 +967,11 @@ footer a:hover {
 <script>
 "use strict";
 
-/* API CONFIGURATION */
+//* API CONFIGURATION */
 
-https://flowtrack-1-3yowon.onrender.com
+const API = "https://flowtrack-1-3yowon.onrender.com";
 
 const token = localStorage.getItem("token");
-
-let customer = null;
 
 try {
     customer = JSON.parse(localStorage.getItem("customer"));
