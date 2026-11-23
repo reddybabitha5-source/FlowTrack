@@ -1,7 +1,7 @@
 
 const express = require("express");
 const cors = require("cors");
-const path = require('path');
+const path = require("path");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -17,11 +17,50 @@ const PORT = process.env.PORT || 5001;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../frontend')));
 
+// Request logger must come before routes
 app.use((req, res, next) => {
     console.log("REQUEST:", req.method, req.url);
     next();
+});
+
+// =====================================
+// HOME ROUTE
+// =====================================
+
+app.get("/", (req, res) => {
+    res.json({
+        success: true,
+        message: "Welcome to FlowTrack API",
+        status: "Server running"
+    });
+});
+
+// =====================================
+// DATABASE TEST
+// =====================================
+
+app.get("/test-db", async (req, res) => {
+    try {
+        const [rows] = await db.query(
+            "SELECT DATABASE() AS database_name, 1 AS result"
+        );
+
+        res.json({
+            success: true,
+            message: "Node.js connected to MySQL successfully!",
+            database: rows[0].database_name,
+            result: rows[0].result
+        });
+
+    } catch (error) {
+        console.error("Database error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Database connection failed"
+        });
+    }
 });
 
 // =====================================
@@ -101,54 +140,13 @@ function verifyAdmin(req, res, next) {
 }
 
 // =====================================
-// HOME
-// =====================================
-
-// =====================================
-// HOME
-// =====================================
-
-app.get("/", (req, res) => {
-    res.json({
-        success: true,
-        message: "Welcome to FlowTrack API",
-        status: "Server running"
-    });
-});
-// =====================================
-// DATABASE TEST
-// =====================================
-
-app.get("/test-db", async (req, res) => {
-    try {
-         const [rows] = await db.query(
-    "SELECT DATABASE() AS database_name, 1 AS result"
-);
-
-        res.json({
-            success: true,
-            message: "Node.js connected to MySQL successfully!",
-            database: rows[0].database_name,
-            result: rows[0].result
-        });
-
-    } catch (error) {
-        console.error("Database error:", error);
-
-        res.status(500).json({
-            success: false,
-            message: "Database connection failed"
-        });
-    }
-});
-
-// =====================================
 // CUSTOMER REGISTRATION
 // =====================================
 
 app.post("/api/register", async (req, res) => {
     try {
         const { full_name, email, phone, password } = req.body;
+
         if (!full_name || !email || !phone || !password) {
             return res.status(400).json({
                 success: false,
@@ -788,10 +786,6 @@ app.patch(
 // ADMIN ADD PROJECT PROGRESS
 // =====================================
 
-// =====================================
-// ADMIN ADD PROJECT PROGRESS
-// =====================================
-
 app.post(
     "/api/admin/project-updates",
     verifyAdmin,
@@ -819,7 +813,6 @@ app.post(
 
             const adminId = Number(req.admin.admin_id);
 
-            // Validate the submitted information
             if (
                 !Number.isInteger(bookingId) ||
                 bookingId <= 0 ||
@@ -839,7 +832,6 @@ app.post(
                 });
             }
 
-            // Check whether the booking exists
             const [bookings] = await db.query(
                 `SELECT booking_id, status
                  FROM bookings
@@ -854,7 +846,6 @@ app.post(
                 });
             }
 
-            // Progress can only be added to accepted projects
             if (
                 bookings[0].status === "pending" ||
                 bookings[0].status === "rejected"
@@ -865,11 +856,9 @@ app.post(
                 });
             }
 
-            // Start database transaction
             connection = await db.getConnection();
             await connection.beginTransaction();
 
-            // Save project progress
             const [result] = await connection.query(
                 `INSERT INTO project_updates
                 (
@@ -889,7 +878,6 @@ app.post(
                 ]
             );
 
-            // Update booking status
             let newStatus = bookings[0].status;
 
             if (percentage === 100) {
@@ -903,7 +891,6 @@ app.post(
                 [newStatus, bookingId]
             );
 
-            // Save changes
             await connection.commit();
 
             return res.status(201).json({
@@ -918,7 +905,6 @@ app.post(
             });
 
         } catch (error) {
-
             if (connection) {
                 try {
                     await connection.rollback();
@@ -939,7 +925,6 @@ app.post(
             });
 
         } finally {
-
             if (connection) {
                 connection.release();
             }
@@ -1159,6 +1144,11 @@ app.post("/api/admin/messages", verifyAdmin, async (req, res) => {
 });
 
 // =====================================
+// FRONTEND STATIC FILES
+// Keep this AFTER all API routes
+// =====================================
+
+app.use(express.static(path.join(__dirname, "../frontend")));
 
 // =====================================
 // CREATE MESSAGES TABLE AUTOMATICALLY
@@ -1196,11 +1186,13 @@ async function startServer() {
         }
 
         await initializeDatabase();
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(
-        `FlowTrack server running at http://localhost:${PORT}`
-    );
-});
+
+        app.listen(PORT, "0.0.0.0", () => {
+            console.log(
+                `FlowTrack server running at http://localhost:${PORT}`
+            );
+        });
+
     } catch (error) {
         console.error("Unable to start FlowTrack server:", error);
         process.exit(1);
