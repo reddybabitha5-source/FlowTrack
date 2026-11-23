@@ -104,6 +104,10 @@ function verifyAdmin(req, res, next) {
 // HOME
 // =====================================
 
+// =====================================
+// HOME
+// =====================================
+
 app.get("/", (req, res) => {
     res.json({
         success: true,
@@ -111,7 +115,6 @@ app.get("/", (req, res) => {
         status: "Server running"
     });
 });
-
 // =====================================
 // DATABASE TEST
 // =====================================
@@ -146,7 +149,6 @@ app.get("/test-db", async (req, res) => {
 app.post("/api/register", async (req, res) => {
     try {
         const { full_name, email, phone, password } = req.body;
-
         if (!full_name || !email || !phone || !password) {
             return res.status(400).json({
                 success: false,
@@ -1155,6 +1157,8 @@ app.post("/api/admin/messages", verifyAdmin, async (req, res) => {
         });
     }
 });
+
+// =====================================
 
 // =====================================
 // CREATE MESSAGES TABLE AUTOMATICALLY
