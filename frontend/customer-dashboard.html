@@ -1,0 +1,1796 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlowTrack | Customer Dashboard</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --navy:#071b3a;
+    --navy-light:#102d57;
+    --blue:#1769d2;
+    --blue-light:#58a6ff;
+    --pale-blue:#eaf3ff;
+    --white:#ffffff;
+    --page:#f2f7ff;
+    --text:#18365d;
+    --muted:#647894;
+    --border:#cbd9eb;
+    --success:#167345;
+    --danger:#b52f36;
+}
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html {
+    scroll-behavior:smooth;
+    scroll-padding-top:100px;
+}
+
+body {
+    font-family:'DM Sans',sans-serif;
+    background:linear-gradient(135deg,#eaf3ff,#f2f7ff);
+    color:var(--text);
+    line-height:1.6;
+}
+
+h1,h2,h3 {
+    font-family:'Playfair Display',serif;
+}
+
+a {
+    text-decoration:none;
+}
+
+button,input,select,textarea {
+    font-family:inherit;
+}
+
+button {
+    cursor:pointer;
+}
+
+/* HEADER */
+
+header {
+    background:var(--navy);
+    color:white;
+    padding:20px 7%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:2px solid var(--blue-light);
+}
+
+header div {
+    color:var(--blue-light);
+    font-size:25px;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+/* NAVIGATION */
+
+nav {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+    padding:17px;
+    background:#dceaff;
+    border-bottom:1px solid var(--border);
+}
+
+nav a {
+    display:inline-block;
+    background:var(--navy);
+    color:white;
+    border:1px solid var(--navy);
+    border-radius:9px;
+    padding:11px 18px;
+    font-size:14px;
+    font-weight:700;
+    white-space:nowrap;
+    transition:.25s;
+}
+
+nav a:hover {
+    background:var(--blue);
+    border-color:var(--blue);
+    transform:translateY(-2px);
+}
+
+/* MAIN CONTAINER */
+
+.container {
+    width:90%;
+    max-width:1250px;
+    margin:32px auto 45px;
+}
+
+.section,.content-section {
+    background:white;
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:30px;
+    margin-bottom:28px;
+    box-shadow:0 5px 20px rgba(7,27,58,.06);
+    scroll-margin-top:100px;
+}
+
+.section h2,.content-section h2 {
+    color:var(--navy);
+    font-size:27px;
+    margin-bottom:22px;
+}
+
+/* HOME AND WELCOME */
+
+#home {
+    padding:0;
+    background:transparent;
+    border:none;
+    box-shadow:none;
+}
+
+.welcome {
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(120deg,#071b3a,#1769d2);
+    border-radius:18px;
+    padding:48px 42px;
+    margin-bottom:28px;
+    box-shadow:0 12px 28px rgba(7,27,58,.16);
+}
+
+.welcome h2 {
+    color:white;
+    font-size:clamp(30px,4vw,46px);
+    line-height:1.2;
+    margin-bottom:5px;
+}
+
+.welcome-name {
+    display:block;
+    color:var(--blue-light);
+    font-size:clamp(34px,5vw,55px);
+    font-weight:800;
+    line-height:1.3;
+    margin-bottom:15px;
+    overflow-wrap:anywhere;
+}
+
+.welcome p {
+    color:#e3edfa;
+    max-width:650px;
+    font-size:15px;
+}
+
+/* STATISTICS */
+
+.stats {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.stat-card {
+    background:white;
+    border:1px solid var(--border);
+    border-radius:13px;
+    padding:25px 20px;
+    text-align:center;
+    box-shadow:0 4px 15px rgba(7,27,58,.05);
+    transition:.3s;
+}
+
+.stat-card:hover {
+    transform:translateY(-4px);
+    border-color:var(--blue-light);
+}
+
+.stat-card h3 {
+    color:var(--muted);
+    font-family:'DM Sans',sans-serif;
+    font-size:14px;
+}
+
+.stat-card p {
+    color:var(--blue);
+    font-size:35px;
+    font-weight:800;
+    margin-top:10px;
+}
+
+/* PROFILE */
+
+#profile p {
+    padding:14px 16px;
+    background:var(--page);
+    border:1px solid var(--border);
+    border-radius:8px;
+    margin-top:12px;
+    color:var(--text);
+    overflow-wrap:anywhere;
+}
+
+#profile strong {
+    color:var(--navy);
+    display:inline-block;
+    min-width:125px;
+}
+
+#profile span {
+    color:var(--text);
+}
+
+/* TABLES */
+
+.table-wrapper {
+    width:100%;
+    overflow-x:auto;
+}
+
+table {
+    width:100%;
+    border-collapse:collapse;
+    min-width:650px;
+    background:white;
+}
+
+th {
+    background:#dceaff;
+    color:var(--navy);
+    padding:16px;
+    text-align:left;
+    font-size:13px;
+}
+
+td {
+    padding:15px 16px;
+    border-bottom:1px solid var(--border);
+    color:var(--text);
+    font-size:14px;
+}
+
+tbody tr:hover {
+    background:#f5f9ff;
+}
+
+/* STATUS LABELS */
+
+.status {
+    display:inline-block;
+    padding:5px 12px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:700;
+    white-space:nowrap;
+    background:#edf1f6;
+    color:#34445a;
+}
+
+.status.pending {
+    color:#93600b;
+    background:#fff3d8;
+}
+
+.status.accepted,.status.completed {
+    color:#167345;
+    background:#ddf6e9;
+}
+
+.status.in_progress {
+    color:#1761a6;
+    background:#e1efff;
+}
+
+.status.rejected {
+    color:#b52f36;
+    background:#ffe6e6;
+}
+
+/* SERVICES */
+
+.service-grid {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:22px;
+    margin-top:25px;
+}
+
+.service-card {
+    background:white;
+    border:1px solid var(--border);
+    border-radius:13px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    min-height:390px;
+    box-shadow:0 4px 15px rgba(7,27,58,.05);
+    transition:.3s;
+}
+
+.service-card:hover {
+    transform:translateY(-5px);
+    box-shadow:0 10px 25px rgba(7,27,58,.12);
+}
+
+.service-image {
+    width:100%;
+    height:205px;
+    display:block;
+    object-fit:cover;
+    background:#eaf2fc;
+    border-bottom:1px solid var(--border);
+}
+
+.service-card-content {
+    padding:22px;
+    display:flex;
+    flex-direction:column;
+    flex-grow:1;
+}
+
+.service-card h3 {
+    color:var(--navy);
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+.service-card p {
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.8;
+    flex-grow:1;
+    margin-bottom:20px;
+    white-space:pre-line;
+}
+
+/* FORMS */
+
+form {
+    width:100%;
+}
+
+label {
+    display:block;
+    color:var(--navy);
+    font-weight:700;
+    font-size:13px;
+    margin-top:18px;
+    margin-bottom:8px;
+}
+
+input,select,textarea {
+    width:100%;
+    background:white;
+    border:1px solid var(--border);
+    color:#243247;
+    padding:13px 15px;
+    border-radius:8px;
+    outline:none;
+    font-size:14px;
+    transition:.2s;
+}
+
+input:focus,select:focus,textarea:focus {
+    border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(23,105,210,.12);
+}
+
+input::placeholder,textarea::placeholder {
+    color:#8492a5;
+}
+
+select option {
+    background:white;
+    color:#243247;
+}
+
+textarea {
+    min-height:120px;
+    resize:vertical;
+}
+
+input[type="date"],input[type="time"] {
+    color-scheme:light;
+}
+
+/* BUTTONS */
+
+button,.ft-support-button {
+    background:linear-gradient(110deg,#1254ad,#3188ed);
+    color:white;
+    border:1px solid var(--blue);
+    padding:12px 20px;
+    border-radius:8px;
+    font-size:13px;
+    font-weight:800;
+    transition:.25s;
+    display:inline-block;
+    text-align:center;
+}
+
+button:hover,.ft-support-button:hover {
+    background:#0d4f9e;
+    border-color:#0d4f9e;
+    transform:translateY(-2px);
+}
+
+#bookingForm button {
+    margin-top:25px;
+    width:100%;
+    padding:15px;
+}
+
+.service-card button {
+    width:100%;
+    margin-top:auto;
+}
+
+button:disabled {
+    opacity:.5;
+    cursor:not-allowed;
+    transform:none;
+}
+
+.secondary-button {
+    background:white;
+    color:var(--blue);
+    border-color:#9bbce5;
+}
+
+.secondary-button:hover {
+    background:var(--blue);
+    color:white;
+}
+
+/* PROJECT PROGRESS */
+
+.progress-card {
+    background:white;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:25px;
+    margin-top:20px;
+}
+
+.progress-card h3 {
+    color:var(--navy);
+    font-size:22px;
+    margin-bottom:10px;
+}
+
+.progress-card>p {
+    color:var(--muted);
+    font-size:14px;
+    margin-top:8px;
+}
+
+.progress-card>h2 {
+    color:var(--blue);
+    margin-top:18px;
+}
+
+.progress-bar {
+    height:11px;
+    width:100%;
+    background:#e5edf6;
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:12px;
+}
+
+.progress-fill {
+    height:100%;
+    background:linear-gradient(90deg,#1769d2,#58a6ff);
+    border-radius:20px;
+    transition:width .5s;
+}
+
+.milestone {
+    background:#f2f7ff;
+    border-left:3px solid var(--blue);
+    padding:18px;
+    margin-top:15px;
+    border-radius:0 8px 8px 0;
+}
+
+.milestone h4 {
+    color:var(--navy);
+    margin-bottom:10px;
+    font-size:16px;
+}
+
+.milestone p {
+    color:var(--muted);
+    font-size:13px;
+    margin-top:9px;
+    overflow-wrap:anywhere;
+}
+
+/* NOTICES */
+
+.notice {
+    margin-top:15px;
+    font-size:13px;
+    color:var(--muted);
+}
+
+.notice.success {
+    color:var(--success);
+}
+
+.notice.error,.error {
+    color:var(--danger);
+}
+
+.empty {
+    color:var(--muted);
+    background:#f2f7ff;
+    border:1px solid var(--border);
+    padding:20px;
+    border-radius:8px;
+    margin-top:15px;
+    font-size:14px;
+    line-height:1.8;
+}
+
+.section-toolbar {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+}
+
+.section-toolbar h2 {
+    margin-bottom:0;
+}
+
+.ft-section-heading {
+    margin-bottom:25px;
+}
+
+.ft-section-heading h2 {
+    margin-bottom:8px;
+}
+
+.ft-section-heading p {
+    color:var(--muted);
+    font-size:14px;
+}
+
+/* CONTACT */
+
+#contact {
+    padding:25px 30px;
+}
+
+#contact .ft-section-heading {
+    margin-bottom:15px;
+}
+
+.ft-contact-email {
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    padding:15px 20px;
+    background:#eaf3ff;
+    border:1px solid #cbdff5;
+    border-radius:9px;
+    color:var(--navy);
+    font-size:15px;
+    font-weight:700;
+    transition:.3s;
+}
+
+.ft-contact-email:hover {
+    background:#d9eaff;
+    border-color:var(--blue);
+}
+
+/* FOOTER */
+
+footer {
+    background:var(--navy);
+    text-align:center;
+    padding:20px;
+    color:white;
+    font-size:13px;
+}
+
+footer a {
+    color:white;
+    font-weight:700;
+}
+
+footer a:hover {
+    color:var(--blue-light);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px) {
+    .stats {
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .service-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+}
+
+@media(max-width:650px) {
+    header {
+        padding:16px 5%;
+    }
+
+    header div {
+        font-size:20px;
+    }
+
+    nav {
+        justify-content:flex-start;
+        padding:12px;
+        gap:8px;
+    }
+
+    nav a {
+        font-size:13px;
+        padding:10px 13px;
+    }
+
+    .container {
+        width:94%;
+        margin:18px auto 25px;
+    }
+
+    .section,.content-section {
+        padding:20px 16px;
+    }
+
+    .welcome {
+        padding:32px 22px;
+    }
+
+    .welcome h2 {
+        font-size:30px;
+    }
+
+    .welcome-name {
+        font-size:37px;
+    }
+
+    .stats {
+        grid-template-columns:1fr 1fr;
+        gap:12px;
+    }
+
+    .stat-card {
+        padding:20px 10px;
+    }
+
+    .stat-card h3 {
+        font-size:12px;
+    }
+
+    .stat-card p {
+        font-size:28px;
+    }
+
+    .service-grid {
+        grid-template-columns:1fr;
+    }
+
+    .service-image {
+        height:220px;
+    }
+
+    #profile strong {
+        min-width:105px;
+    }
+
+    #contact {
+        padding:22px 16px;
+    }
+}
+
+@media(max-width:380px) {
+    .stats {
+        grid-template-columns:1fr;
+    }
+
+    .welcome-name {
+        font-size:31px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div>FLOWTRACK | Customer Dashboard</div>
+</header>
+
+<nav>
+    <a href="#home">Home</a>
+    <a href="#profile">Profile</a>
+    <a href="#requests">Requests</a>
+    <a href="#progress">Progress</a>
+    <a href="#services">Services</a>
+    <a href="#booking">Book Service</a>
+    <a href="#contact">Contact</a>
+    <a href="#" id="logoutLink">Logout</a>
+</nav>
+
+<main class="container">
+
+    <!-- HOME -->
+
+    <section id="home">
+
+        <div class="welcome">
+            <h2>
+                Welcome,
+                <span id="welcomeCustomerName" class="welcome-name">Customer</span>
+            </h2>
+
+            <p>
+                Manage your projects, book professional services and track your project progress.
+            </p>
+        </div>
+
+        <div class="stats">
+
+            <div class="stat-card">
+                <h3>Total Requests</h3>
+                <p id="totalRequests">0</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Pending Requests</h3>
+                <p id="pendingRequests">0</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Active Projects</h3>
+                <p id="activeProjects">0</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Completed Projects</h3>
+                <p id="completedProjects">0</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PROFILE -->
+
+    <section id="profile" class="section">
+
+        <h2>My Profile</h2>
+
+        <p><strong>Customer ID:</strong> <span id="profileId">-</span></p>
+        <p><strong>Full Name:</strong> <span id="profileName">-</span></p>
+        <p><strong>Email:</strong> <span id="profileEmail">-</span></p>
+        <p><strong>Phone:</strong> <span id="profilePhone">-</span></p>
+
+    </section>
+
+    <!-- PROJECT REQUESTS -->
+
+    <section id="requests" class="section">
+
+        <div class="section-toolbar">
+            <h2>My Project Requests</h2>
+
+            <button type="button" class="secondary-button" id="refreshBookingsButton">
+                Refresh Requests
+            </button>
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Request ID</th>
+                        <th>Project</th>
+                        <th>Service</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+
+                <tbody id="requestsTable">
+                    <tr>
+                        <td colspan="5">Loading requests...</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <p id="requestsMessage" class="notice" aria-live="polite"></p>
+
+    </section>
+
+    <!-- PROJECT PROGRESS -->
+
+    <section id="progress" class="section">
+
+        <div class="section-toolbar">
+            <h2>My Project Progress</h2>
+
+            <button type="button" class="secondary-button" id="refreshProgressButton">
+                Refresh Progress
+            </button>
+        </div>
+
+        <p class="empty" id="progressLoading">
+            Loading your project progress...
+        </p>
+
+        <div id="progressContainer"></div>
+
+        <p id="progressMessage" class="notice" aria-live="polite"></p>
+
+    </section>
+
+    <!-- SERVICES -->
+
+    <section id="services" class="section">
+
+        <h2>Available Services</h2>
+
+        <p class="empty">
+            Choose a professional service to start your project.
+        </p>
+
+        <div class="service-grid" id="servicesContainer">
+            <p>Loading services...</p>
+        </div>
+
+        <p id="servicesMessage" class="notice" aria-live="polite"></p>
+
+    </section>
+
+    <!-- BOOK SERVICE -->
+
+    <section id="booking" class="section">
+
+        <h2>Book a Service</h2>
+
+        <form id="bookingForm">
+
+            <label for="serviceSelect">Choose Service</label>
+
+            <select id="serviceSelect" required>
+                <option value="">Select a service</option>
+            </select>
+
+            <label for="projectTitle">Project Title</label>
+
+            <input
+                type="text"
+                id="projectTitle"
+                placeholder="Enter your project title"
+                maxlength="200"
+                required
+            >
+
+            <label for="projectDescription">Project Description</label>
+
+            <textarea
+                id="projectDescription"
+                placeholder="Describe your project requirements"
+                required
+            ></textarea>
+
+            <label for="budget">Budget (₹)</label>
+
+            <input
+                type="number"
+                id="budget"
+                placeholder="Enter your budget"
+                min="0"
+                step="0.01"
+            >
+
+            <label for="preferredDate">Preferred Date</label>
+
+            <input type="date" id="preferredDate">
+
+            <label for="preferredTime">Preferred Time</label>
+
+            <input type="time" id="preferredTime">
+
+            <button type="submit" id="bookingSubmitButton">
+                Submit Booking
+            </button>
+
+        </form>
+
+        <p id="bookingMessage" class="notice" aria-live="polite"></p>
+
+    </section>
+
+    <!-- CONTACT -->
+<!-- CONTACT -->
+
+<section id="contact" class="content-section">
+
+    <div class="contact-box">
+
+        <h2>Contact Us</h2>
+
+        <a href="tel:+91 9876543210" class="contact-link">
+            📞 Call Us
+        </a>
+
+        <a href="https://wa.me/919876543210"
+           target="_blank"
+           class="contact-link">
+            💬 WhatsApp Us
+        </a>
+
+        <a href="mailto:admin@flowtrack.com?subject=FlowTrack%20Support"
+   class="contact-link">
+    ✉️ Email Us
+</a>
+    </div>
+
+</section>
+</main>
+
+<footer>
+    <a href="mailto:admin@flowtrack.com">admin@flowtrack.com</a>
+</footer>
+
+<script>
+"use strict";
+
+/* API CONFIGURATION */
+
+const API = "http://10.122.76.13:5001";
+
+const token = localStorage.getItem("token");
+
+let customer = null;
+
+try {
+    customer = JSON.parse(localStorage.getItem("customer"));
+} catch (error) {
+    customer = null;
+}
+
+/* AUTHENTICATION */
+
+function logoutCustomer() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("customer");
+    window.location.replace("index.html");
+}
+
+if (!token || !customer) {
+    logoutCustomer();
+}
+
+/* API HEADERS */
+
+function getHeaders() {
+    return {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+    };
+}
+
+/* API REQUEST */
+
+async function apiRequest(url, options = {}) {
+
+    const response = await fetch(url, {
+        ...options,
+        headers: {
+            ...getHeaders(),
+            ...(options.headers || {})
+        }
+    });
+
+    let data = {};
+
+    try {
+        data = await response.json();
+    } catch (error) {
+        data = {};
+    }
+
+    if (response.status === 401 || response.status === 403) {
+        logoutCustomer();
+        throw new Error("Your session has expired. Please login again.");
+    }
+
+    if (!response.ok) {
+        throw new Error(
+            data.message || `Request failed with status ${response.status}.`
+        );
+    }
+
+    return data;
+}
+
+/* SAFE HTML */
+
+function escapeHTML(value) {
+
+    return String(value ?? "").replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+    })[character]);
+
+}
+
+/* STATUS FORMAT */
+
+function formatStatus(status) {
+
+    const labels = {
+        pending: "Pending",
+        accepted: "Accepted",
+        rejected: "Rejected",
+        in_progress: "In Progress",
+        completed: "Completed"
+    };
+
+    return labels[status] || status || "Unknown";
+}
+
+/* DATE FORMAT */
+
+function formatDate(value) {
+
+    if (!value) return "-";
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) return "-";
+
+    return date.toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+    });
+}
+
+function formatDateTime(value) {
+
+    if (!value) return "";
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) return "";
+
+    return date.toLocaleString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+}
+
+/* DISPLAY NOTICES */
+
+function showNotice(elementId, message, type = "") {
+
+    const element = document.getElementById(elementId);
+
+    if (!element) return;
+
+    element.textContent = message;
+    element.className = ("notice " + type).trim();
+
+}
+
+/* CUSTOMER PROFILE */
+
+function loadProfile() {
+
+    const name = customer.full_name || "Customer";
+
+    document.getElementById("welcomeCustomerName").textContent = name;
+
+    document.getElementById("profileId").textContent =
+        customer.customer_id ?? "-";
+
+    document.getElementById("profileName").textContent = name;
+
+    document.getElementById("profileEmail").textContent =
+        customer.email || "-";
+
+    document.getElementById("profilePhone").textContent =
+        customer.phone || "-";
+
+}
+
+/* CUSTOMER BOOKINGS */
+
+async function loadBookings() {
+
+    const table = document.getElementById("requestsTable");
+    const refreshButton = document.getElementById("refreshBookingsButton");
+
+    table.innerHTML = `
+        <tr>
+            <td colspan="5">Loading your project requests...</td>
+        </tr>
+    `;
+
+    showNotice("requestsMessage", "");
+
+    if (refreshButton) {
+        refreshButton.disabled = true;
+        refreshButton.textContent = "Loading...";
+    }
+
+    try {
+
+        const data = await apiRequest(`${API}/api/my-bookings`);
+
+        const bookings = Array.isArray(data.bookings)
+            ? data.bookings
+            : [];
+
+        /* UPDATE DASHBOARD COUNTS */
+
+        document.getElementById("totalRequests").textContent =
+            bookings.length;
+
+        document.getElementById("pendingRequests").textContent =
+            bookings.filter(item =>
+                String(item.status).toLowerCase() === "pending"
+            ).length;
+
+        document.getElementById("activeProjects").textContent =
+            bookings.filter(item =>
+                ["accepted", "in_progress"].includes(
+                    String(item.status).toLowerCase()
+                )
+            ).length;
+
+        document.getElementById("completedProjects").textContent =
+            bookings.filter(item =>
+                String(item.status).toLowerCase() === "completed"
+            ).length;
+
+        /* NO BOOKINGS */
+
+        if (bookings.length === 0) {
+
+            table.innerHTML = `
+                <tr>
+                    <td colspan="5">
+                        You have not submitted any project requests yet.
+                    </td>
+                </tr>
+            `;
+
+            return;
+        }
+
+        /* DISPLAY CUSTOMER BOOKINGS */
+
+        table.innerHTML = bookings.map(booking => {
+
+            const status = String(
+                booking.status || "pending"
+            ).toLowerCase();
+
+            return `
+                <tr>
+                    <td>${escapeHTML(booking.booking_id)}</td>
+                    <td>${escapeHTML(booking.project_title)}</td>
+                    <td>${escapeHTML(booking.service_name)}</td>
+                    <td>
+                        <span class="status ${escapeHTML(status)}">
+                            ${escapeHTML(formatStatus(status))}
+                        </span>
+                    </td>
+                    <td>${escapeHTML(formatDate(booking.created_at))}</td>
+                </tr>
+            `;
+
+        }).join("");
+
+    } catch (error) {
+
+        console.error("Bookings error:", error);
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="5">
+                    Unable to load project requests.
+                    Please try again.
+                </td>
+            </tr>
+        `;
+
+        showNotice(
+            "requestsMessage",
+            error.message,
+            "error"
+        );
+
+    } finally {
+
+        if (refreshButton) {
+            refreshButton.disabled = false;
+            refreshButton.textContent = "Refresh Requests";
+        }
+
+    }
+
+}
+
+/* PROJECT PROGRESS */
+
+async function loadProjectProgress() {
+
+    const container = document.getElementById("progressContainer");
+    const loading = document.getElementById("progressLoading");
+    const refreshButton = document.getElementById("refreshProgressButton");
+
+    loading.hidden = false;
+    loading.textContent = "Loading your project progress...";
+
+    container.innerHTML = "";
+
+    showNotice("progressMessage", "");
+
+    if (refreshButton) {
+        refreshButton.disabled = true;
+        refreshButton.textContent = "Loading...";
+    }
+
+    try {
+
+        const data = await apiRequest(`${API}/api/my-progress`);
+
+        const records = Array.isArray(data.progress)
+            ? data.progress
+            : [];
+
+        loading.hidden = true;
+
+        if (records.length === 0) {
+
+            container.innerHTML = `
+                <p class="empty">
+                    No project progress updates are available yet.
+                </p>
+            `;
+
+            return;
+        }
+
+        const projects = {};
+
+        records.forEach(record => {
+
+            const id = record.booking_id;
+
+            if (id === null || id === undefined) return;
+
+            if (!projects[id]) {
+
+                projects[id] = {
+                    booking_id: id,
+                    project_title: record.project_title,
+                    service_name: record.service_name,
+                    status: record.status,
+                    updates: []
+                };
+
+            }
+
+            if (
+                record.update_id !== null &&
+                record.update_id !== undefined
+            ) {
+                projects[id].updates.push(record);
+            }
+
+        });
+
+        container.innerHTML = Object.values(projects).map(project => {
+
+            const updates = project.updates;
+
+            const latestUpdate = updates.length
+                ? updates[updates.length - 1]
+                : null;
+
+            const percentage = latestUpdate
+                ? Number(latestUpdate.progress_percentage)
+                : 0;
+
+            const safePercentage = Number.isFinite(percentage)
+                ? Math.min(100, Math.max(0, percentage))
+                : 0;
+
+            const timelineHTML = updates.length
+
+                ? updates.map(update => `
+
+                    <div class="milestone">
+
+                        <h4>
+                            ${escapeHTML(update.stage_name || "Project Update")}
+                        </h4>
+
+                        <p>
+                            ${escapeHTML(update.update_description || "")}
+                        </p>
+
+                        <p>
+                            Progress:
+                            ${escapeHTML(update.progress_percentage)}%
+                        </p>
+
+                        <p>
+                            ${escapeHTML(formatDateTime(update.updated_at))}
+                        </p>
+
+                    </div>
+
+                `).join("")
+
+                : `
+                    <p class="empty">
+                        No progress updates have been added yet.
+                    </p>
+                `;
+
+            return `
+
+                <div class="progress-card">
+
+                    <h3>
+                        ${escapeHTML(project.project_title)}
+                    </h3>
+
+                    <p>
+                        Service:
+                        ${escapeHTML(project.service_name)}
+                    </p>
+
+                    <p>
+                        Status:
+
+                        <span class="status ${escapeHTML(
+                            String(project.status || "").toLowerCase()
+                        )}">
+                            ${escapeHTML(formatStatus(project.status))}
+                        </span>
+                    </p>
+
+                    <h2>${safePercentage}% Completed</h2>
+
+                    <div class="progress-bar">
+                        <div
+                            class="progress-fill"
+                            style="width:${safePercentage}%"
+                        ></div>
+                    </div>
+
+                    ${timelineHTML}
+
+                </div>
+
+            `;
+
+        }).join("");
+
+    } catch (error) {
+
+        console.error("Project progress error:", error);
+
+        loading.hidden = true;
+
+        container.innerHTML = `
+            <p class="empty">
+                Unable to load project progress.
+            </p>
+        `;
+
+        showNotice(
+            "progressMessage",
+            error.message,
+            "error"
+        );
+
+    } finally {
+
+        if (refreshButton) {
+            refreshButton.disabled = false;
+            refreshButton.textContent = "Refresh Progress";
+        }
+
+    }
+
+}
+
+/* SERVICE PHOTOS */
+
+const servicePhotos = [
+
+    {
+        keywords: ["website", "web development"],
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=85",
+        alt: "Website development workspace with website analytics"
+    },
+
+    {
+        keywords: ["software", "application development"],
+        image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=85",
+        alt: "Computer hardware and software development technology"
+    },
+
+    {
+        keywords: ["mobile app", "app development", "android", "ios"],
+        image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=900&q=85",
+        alt: "Mobile application displayed on a smartphone"
+    },
+
+    {
+        keywords: ["ui", "ux", "user interface", "user experience"],
+        image: "https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=900&q=85",
+        alt: "Creative user interface and web design workspace"
+    },
+
+    {
+        keywords: ["graphic", "logo", "branding"],
+        image: "https://images.unsplash.com/photo-1545235617-9465d2a55698?auto=format&fit=crop&w=900&q=85",
+        alt: "Graphic design creative workspace"
+    },
+
+    {
+        keywords: ["digital marketing", "marketing", "seo", "social media"],
+        image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=85",
+        alt: "Digital marketing team planning a campaign"
+    },
+
+    {
+        keywords: ["video", "editing", "animation"],
+        image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=900&q=85",
+        alt: "Professional video editing workstation"
+    },
+
+    {
+        keywords: ["content", "writing", "copywriting", "blog"],
+        image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=85",
+        alt: "Writer working on digital content"
+    },
+
+    {
+        keywords: ["e-commerce", "ecommerce", "online store", "shopping"],
+        image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=85",
+        alt: "Online shopping and e-commerce payment"
+    }
+
+];
+
+function getServicePhoto(serviceName, index) {
+
+    const name = String(serviceName || "").toLowerCase();
+
+    const matchingPhoto = servicePhotos.find(photo =>
+        photo.keywords.some(keyword => name.includes(keyword))
+    );
+
+    return matchingPhoto || servicePhotos[index % servicePhotos.length];
+
+}
+
+/* AVAILABLE SERVICES */
+
+async function loadServices() {
+
+    const container = document.getElementById("servicesContainer");
+    const select = document.getElementById("serviceSelect");
+
+    container.innerHTML = "<p>Loading services...</p>";
+
+    try {
+
+        const data = await apiRequest(`${API}/api/services`);
+
+        let services = Array.isArray(data.services)
+            ? data.services
+            : [];
+
+        services = services.filter(service =>
+            String(service.service_name || "")
+                .trim()
+                .toLowerCase() !== "it consulting"
+        );
+
+        if (services.length === 0) {
+
+            container.innerHTML = `
+                <p class="empty">
+                    No services are currently available.
+                </p>
+            `;
+
+            select.innerHTML = `
+                <option value="">No services available</option>
+            `;
+
+            return;
+        }
+
+        container.innerHTML = services.map((service, index) => {
+
+            const photo = getServicePhoto(service.service_name, index);
+
+            return `
+
+                <div class="service-card">
+
+                    <img
+                        class="service-image"
+                        src="${photo.image}"
+                        alt="${escapeHTML(photo.alt)}"
+                        loading="lazy"
+                        onerror="this.onerror=null;this.src='https://placehold.co/900x500/071b3a/58a6ff?text=FlowTrack+Service';"
+                    >
+
+                    <div class="service-card-content">
+
+                        <h3>
+                            ${escapeHTML(service.service_name)}
+                        </h3>
+
+                        <p>
+                            ${escapeHTML(
+                                service.description || "Professional service"
+                            )}
+                        </p>
+
+                        <button
+                            type="button"
+                            onclick="selectService(${Number(service.service_id)})"
+                        >
+                            Book This Service
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+        select.innerHTML = `
+            <option value="">Select a service</option>
+        ` + services.map(service => `
+
+            <option value="${Number(service.service_id)}">
+                ${escapeHTML(service.service_name)}
+            </option>
+
+        `).join("");
+
+    } catch (error) {
+
+        console.error("Services error:", error);
+
+        container.innerHTML = `
+            <p class="empty">
+                Unable to load services.
+            </p>
+        `;
+
+        showNotice(
+            "servicesMessage",
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+/* SELECT SERVICE */
+
+function selectService(serviceId) {
+
+    const select = document.getElementById("serviceSelect");
+
+    select.value = String(serviceId);
+
+    document.getElementById("booking").scrollIntoView({
+        behavior:"smooth"
+    });
+
+    select.focus();
+
+}
+
+/* SUBMIT BOOKING */
+
+document.getElementById("bookingForm").addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+        const button = document.getElementById("bookingSubmitButton");
+
+        const booking = {
+
+            service_id: Number(
+                document.getElementById("serviceSelect").value
+            ),
+
+            project_title:
+                document.getElementById("projectTitle").value.trim(),
+
+            project_description:
+                document.getElementById("projectDescription").value.trim(),
+
+            budget:
+                document.getElementById("budget").value || null,
+
+            preferred_date:
+                document.getElementById("preferredDate").value || null,
+
+            preferred_time:
+                document.getElementById("preferredTime").value || null
+
+        };
+
+        if (
+            !booking.service_id ||
+            !booking.project_title ||
+            !booking.project_description
+        ) {
+
+            showNotice(
+                "bookingMessage",
+                "Please complete all required fields.",
+                "error"
+            );
+
+            return;
+
+        }
+
+        if (
+            booking.budget !== null &&
+            Number(booking.budget) < 0
+        ) {
+
+            showNotice(
+                "bookingMessage",
+                "Budget cannot be negative.",
+                "error"
+            );
+
+            return;
+
+        }
+
+        button.disabled = true;
+        button.textContent = "Submitting...";
+
+        showNotice("bookingMessage", "");
+
+        try {
+
+            const data = await apiRequest(`${API}/api/bookings`, {
+
+                method:"POST",
+
+                body:JSON.stringify(booking)
+
+            });
+
+            showNotice(
+                "bookingMessage",
+                data.message ||
+                "Booking submitted successfully! Your request is pending admin approval.",
+                "success"
+            );
+
+            document.getElementById("bookingForm").reset();
+
+            /* REFRESH CUSTOMER REQUESTS AFTER BOOKING */
+
+            await loadBookings();
+
+            await loadProjectProgress();
+
+        } catch (error) {
+
+            console.error("Booking error:", error);
+
+            showNotice(
+                "bookingMessage",
+                error.message,
+                "error"
+            );
+
+        } finally {
+
+            button.disabled = false;
+            button.textContent = "Submit Booking";
+
+        }
+
+    }
+);
+
+/* REFRESH REQUESTS */
+
+document.getElementById("refreshBookingsButton")
+    .addEventListener("click", loadBookings);
+
+/* REFRESH PROGRESS */
+
+document.getElementById("refreshProgressButton")
+    .addEventListener("click", loadProjectProgress);
+
+/* LOGOUT */
+
+document.getElementById("logoutLink").addEventListener(
+    "click",
+    function(event) {
+
+        event.preventDefault();
+
+        logoutCustomer();
+
+    }
+);
+
+/* INITIAL DASHBOARD LOAD */
+
+if (token && customer) {
+
+    loadProfile();
+
+    loadBookings();
+
+    loadProjectProgress();
+
+    loadServices();
+
+}
+
+</script>
+
+</body>
+</html>

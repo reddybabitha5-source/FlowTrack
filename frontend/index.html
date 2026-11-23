@@ -1,0 +1,823 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FlowTrack | Login</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+    --navy: #071b3a;
+    --navy-light: #102d57;
+    --blue: #1769d2;
+    --blue-light: #58a6ff;
+    --pale-blue: #eaf3ff;
+    --white: #ffffff;
+    --muted: #aabbd3;
+    --border: rgba(91, 166, 255, 0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'DM Sans', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    padding: 30px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(circle at 15% 20%, #174c91 0, transparent 35%),
+        linear-gradient(135deg, #06152e, #102d57, #071b3a);
+
+    color: var(--white);
+}
+
+.container {
+    width: 100%;
+    max-width: 1150px;
+    min-height: 650px;
+
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+
+    background: var(--navy);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+
+    box-shadow: 0 25px 80px rgba(0,0,0,0.45);
+}
+
+/* LEFT SECTION */
+
+.welcome {
+    padding: 45px 55px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    background:
+        linear-gradient(rgba(7,27,58,0.88), rgba(7,27,58,0.96)),
+        radial-gradient(circle at 30% 40%, #2876ce, #071b3a);
+}
+
+.logo {
+    color: var(--blue-light);
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: 5px;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.welcome h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 5vw, 57px);
+    line-height: 1.2;
+    margin-bottom: 22px;
+}
+
+.welcome h1 span {
+    color: var(--blue-light);
+}
+
+.blue-line {
+    height: 4px;
+    width: 65px;
+    background: var(--blue-light);
+    margin: 8px 0 25px;
+    border-radius: 5px;
+}
+
+.welcome-description {
+    color: #c5d6ed;
+    line-height: 1.9;
+    font-size: 15px;
+    max-width: 440px;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 35px;
+}
+
+.feature {
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.04);
+    padding: 16px;
+    border-radius: 10px;
+}
+
+.feature h3 {
+    font-size: 15px;
+    color: var(--blue-light);
+    margin-bottom: 7px;
+}
+
+.feature p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* RIGHT SECTION */
+
+.login-area {
+    background: #f2f7ff;
+    color: var(--navy);
+    padding: 45px 40px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-area h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #647894;
+    font-size: 14px;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+/* TABS */
+
+.tabs {
+    display: flex;
+    gap: 5px;
+    padding: 5px;
+    border-radius: 9px;
+    background: #dceaff;
+    margin-bottom: 22px;
+}
+
+.tabs button {
+    flex: 1;
+    padding: 12px 5px;
+    border: none;
+    border-radius: 7px;
+    background: transparent;
+    color: #385475;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.tabs button.active {
+    background: var(--blue);
+    color: white;
+}
+
+/* FORMS */
+
+.form {
+    display: none;
+}
+
+.form.active {
+    display: block;
+}
+
+.form label {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    margin: 14px 0 7px;
+    color: #18365d;
+}
+
+.form input {
+    width: 100%;
+    padding: 14px;
+    background: white;
+    border: 1px solid #c9d9ee;
+    border-radius: 7px;
+    outline: none;
+    font-size: 14px;
+    color: #102d57;
+    transition: 0.3s;
+}
+
+.form input:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(23,105,210,0.13);
+}
+
+.submit-btn {
+    width: 100%;
+    margin-top: 23px;
+    padding: 15px;
+
+    background: linear-gradient(110deg, #1254ad, #3188ed);
+
+    border: none;
+    border-radius: 7px;
+
+    color: white;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(23,105,210,0.25);
+}
+
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* MESSAGE */
+
+.message {
+    display: none;
+    padding: 11px;
+    border-radius: 7px;
+    margin: 12px 0;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.message.show {
+    display: block;
+}
+
+.message.error {
+    background: #ffe9e9;
+    color: #a32222;
+}
+
+.message.success {
+    background: #e3f5e9;
+    color: #176b32;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+
+    body {
+        padding: 15px;
+        min-height: 100vh;
+        align-items: flex-start;
+    }
+
+    .container {
+        width: 100%;
+        min-height: auto;
+        grid-template-columns: 1fr;
+    }
+
+    .welcome {
+        padding: 30px 25px;
+    }
+
+    .logo {
+        font-size: 32px;
+    }
+
+    .welcome h1 {
+        font-size: 36px;
+    }
+
+    .login-area {
+        padding: 30px 25px;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .features {
+        grid-template-columns: 1fr;
+    }
+
+    .tabs button {
+        font-size: 10px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- WELCOME SECTION -->
+
+    <section class="welcome">
+
+        <div class="logo">FLOWTRACK</div>
+
+        <h1>
+            Ideas into<br>
+            <span>Reality.</span>
+        </h1>
+
+        <div class="blue-line"></div>
+
+        <p class="welcome-description">
+            Manage your projects, connect with creative professionals,
+            book services and follow every step of your work in one place.
+        </p>
+
+        <div class="features">
+
+            <div class="feature">
+                <h3>01. Book Services</h3>
+                <p>Explore services and submit project requests.</p>
+            </div>
+
+            <div class="feature">
+                <h3>02. Manage Projects</h3>
+                <p>Keep your project information organized.</p>
+            </div>
+
+            <div class="feature">
+                <h3>03. Track Progress</h3>
+                <p>Follow project stages and completion.</p>
+            </div>
+
+            <div class="feature">
+                <h3>04. Stay Connected</h3>
+                <p>Receive updates about your projects.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- LOGIN SECTION -->
+
+    <section class="login-area">
+
+        <h2 id="formTitle">Welcome Back!</h2>
+
+        <p class="subtitle" id="formSubtitle">
+            Login to access your FlowTrack account.
+        </p>
+
+        <div class="tabs">
+
+            <button type="button"
+                class="active"
+                onclick="showForm('login', this)">
+                Customer Login
+            </button>
+
+            <button type="button"
+                onclick="showForm('register', this)">
+                Register
+            </button>
+
+            <button type="button"
+                onclick="showForm('admin', this)">
+                Admin
+            </button>
+
+        </div>
+
+        <div id="message" class="message"></div>
+
+        <!-- CUSTOMER LOGIN -->
+
+        <form class="form active"
+            id="login"
+            onsubmit="loginCustomer(event)">
+
+            <label for="loginEmail">Email Address</label>
+
+            <input type="email"
+                id="loginEmail"
+                placeholder="Enter your email"
+                autocomplete="email"
+                required>
+
+            <label for="loginPassword">Password</label>
+
+            <input type="password"
+                id="loginPassword"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required>
+
+            <button class="submit-btn" type="submit">
+                Login to Account
+            </button>
+
+        </form>
+
+        <!-- CUSTOMER REGISTRATION -->
+
+        <form class="form"
+            id="register"
+            onsubmit="registerCustomer(event)">
+
+            <label for="regName">Full Name</label>
+
+            <input type="text"
+                id="regName"
+                placeholder="Enter your full name"
+                autocomplete="name"
+                required>
+
+            <label for="regEmail">Email Address</label>
+
+            <input type="email"
+                id="regEmail"
+                placeholder="Enter your email"
+                autocomplete="email"
+                required>
+
+            <label for="regPhone">Phone Number</label>
+
+            <input type="tel"
+                id="regPhone"
+                placeholder="Enter your phone number"
+                autocomplete="tel"
+                required>
+
+            <label for="regPassword">Password</label>
+
+            <input type="password"
+                id="regPassword"
+                placeholder="Create a password"
+                minlength="8"
+                autocomplete="new-password"
+                required>
+
+            <button class="submit-btn" type="submit">
+                Create Account
+            </button>
+
+        </form>
+
+        <!-- ADMIN LOGIN -->
+
+        <form class="form"
+            id="admin"
+            onsubmit="adminLogin(event)">
+
+            <label for="adminEmail">Admin Email</label>
+
+            <input type="email"
+                id="adminEmail"
+                placeholder="Enter admin email"
+                autocomplete="username"
+                required>
+
+            <label for="adminPassword">Admin Password</label>
+
+            <input type="password"
+                id="adminPassword"
+                placeholder="Enter admin password"
+                autocomplete="current-password"
+                required>
+
+            <button class="submit-btn" type="submit">
+                Admin Login
+            </button>
+
+        </form>
+
+    </section>
+
+</div>
+
+<script>
+
+// API CONFIGURATION
+
+const API_BASE = "http://10.122.76.13:5001";
+
+
+// FORM SWITCHING
+
+function showForm(formId, button) {
+
+    document.querySelectorAll(".form").forEach(form => {
+        form.classList.remove("active");
+    });
+
+    document.querySelectorAll(".tabs button").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    document.getElementById(formId).classList.add("active");
+
+    button.classList.add("active");
+
+    const titles = {
+        login: [
+            "Welcome Back!",
+            "Login to access your FlowTrack account."
+        ],
+        register: [
+            "Create Account",
+            "Join FlowTrack and manage your projects."
+        ],
+        admin: [
+            "Admin Portal",
+            "Login to manage customers and projects."
+        ]
+    };
+
+    document.getElementById("formTitle").textContent =
+        titles[formId][0];
+
+    document.getElementById("formSubtitle").textContent =
+        titles[formId][1];
+
+    clearMessage();
+}
+
+
+// DISPLAY MESSAGES
+
+function displayMessage(message, type) {
+
+    const messageBox = document.getElementById("message");
+
+    messageBox.textContent = message;
+    messageBox.className = "message show " + type;
+}
+
+function clearMessage() {
+
+    const messageBox = document.getElementById("message");
+
+    messageBox.textContent = "";
+    messageBox.className = "message";
+}
+
+
+// CUSTOMER REGISTRATION
+
+async function registerCustomer(event) {
+
+    event.preventDefault();
+    clearMessage();
+
+    const full_name =
+        document.getElementById("regName").value.trim();
+
+    const email =
+        document.getElementById("regEmail").value.trim();
+
+    const phone =
+        document.getElementById("regPhone").value.trim();
+
+    const password =
+        document.getElementById("regPassword").value;
+
+    const button =
+        document.querySelector("#register .submit-btn");
+
+    button.disabled = true;
+    button.textContent = "Registering...";
+
+    try {
+
+        const response = await fetch(
+            `${API_BASE}/api/register`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    full_name,
+                    email,
+                    phone,
+                    password
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            displayMessage(
+                data.message || "Registration failed.",
+                "error"
+            );
+            return;
+        }
+
+        document.getElementById("register").reset();
+
+        const loginButton =
+            document.querySelector(".tabs button");
+
+        showForm("login", loginButton);
+
+        document.getElementById("loginEmail").value = email;
+
+        displayMessage(
+            "Registration successful! Please login.",
+            "success"
+        );
+
+    } catch (error) {
+
+        console.error("Registration error:", error);
+
+        displayMessage(
+            "Cannot connect to FlowTrack server. Check whether the backend is running.",
+            "error"
+        );
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = "Create Account";
+
+    }
+}
+
+
+// CUSTOMER LOGIN
+
+async function loginCustomer(event) {
+
+    event.preventDefault();
+    clearMessage();
+
+    const email =
+        document.getElementById("loginEmail").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+    const button =
+        document.querySelector("#login .submit-btn");
+
+    button.disabled = true;
+    button.textContent = "Logging in...";
+
+    try {
+
+        const response = await fetch(
+            `${API_BASE}/api/login`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            displayMessage(
+                data.message || "Customer login failed.",
+                "error"
+            );
+            return;
+        }
+
+        localStorage.setItem("token", data.token);
+
+        localStorage.setItem(
+            "customer",
+            JSON.stringify(data.customer)
+        );
+
+        displayMessage(
+            "Login successful! Opening your dashboard...",
+            "success"
+        );
+
+        window.location.href = "./customer-dashboard.html";
+
+    } catch (error) {
+
+        console.error("Customer login error:", error);
+
+        displayMessage(
+            "Cannot connect to FlowTrack server. Check whether the backend is running.",
+            "error"
+        );
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = "Login to Account";
+
+    }
+}
+
+
+// ADMIN LOGIN
+
+async function adminLogin(event) {
+
+    event.preventDefault();
+    clearMessage();
+
+    const email =
+        document.getElementById("adminEmail").value.trim();
+
+    const password =
+        document.getElementById("adminPassword").value;
+
+    const button =
+        document.querySelector("#admin .submit-btn");
+
+    button.disabled = true;
+    button.textContent = "Verifying...";
+
+    try {
+
+        const response = await fetch(
+            `${API_BASE}/api/admin/login`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            displayMessage(
+                data.message || "Admin login failed.",
+                "error"
+            );
+            return;
+        }
+
+        localStorage.setItem(
+            "flowtrackAdminToken",
+            data.token
+        );
+
+        localStorage.setItem(
+            "flowtrackAdmin",
+            JSON.stringify(data.admin)
+        );
+
+        displayMessage(
+            "Admin login successful! Opening dashboard...",
+            "success"
+        );
+
+        window.location.href = "./admin-dashboard.html";
+
+    } catch (error) {
+
+        console.error("Admin login error:", error);
+
+        displayMessage(
+            "Cannot connect to FlowTrack server. Check whether the backend is running.",
+            "error"
+        );
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = "Admin Login";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
