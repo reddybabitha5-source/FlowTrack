@@ -969,15 +969,19 @@ footer a:hover {
 
 //* API CONFIGURATION */
 
-const API = "https://flowtrack-1-3yowon.onrender.com";
+const API = "https://flowtrack-1-3yow.onrender.com";
 
 const token = localStorage.getItem("token");
+
+
+let customer = null;
 
 try {
     customer = JSON.parse(localStorage.getItem("customer"));
 } catch (error) {
     customer = null;
 }
+
 
 /* AUTHENTICATION */
 
